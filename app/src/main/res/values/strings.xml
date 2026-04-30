@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO: Change app_name when cloning template -->
-    <string name="app_name">NPH App</string>
+    <string name="app_name">Moovee</string>
 
     <!-- Navigation -->
     <string name="select_language">Select Language</string>
@@ -9,9 +8,87 @@
     <string name="home_title">Home</string>
     <string name="settings_title">Settings</string>
 
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Watch Everywhere</string>
+    <string name="onboarding_desc_1">Enjoy your favorite content anytime, anywhere on any device.</string>
+    <string name="onboarding_title_2">Unlimited Content</string>
+    <string name="onboarding_desc_2">Access to thousands of movies, series, and exclusive shows.</string>
+    <string name="onboarding_title_3">High Quality</string>
+    <string name="onboarding_desc_3">Stream in Ultra HD and experience the best visual quality.</string>
+    <string name="onboarding_title_4">Quick Playback Speed</string>
+    <string name="onboarding_desc_4">Easily adjust playback speed to suit your preference.</string>
+
     <!-- Buttons -->
     <string name="btn_continue">Continue</string>
     <string name="btn_get_started">Get Started</string>
+    <string name="btn_view_now">View now</string>
     <string name="btn_settings">Settings</string>
     <string name="btn_premium">Upgrade to Premium</string>
+
+    <!-- Languages -->
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_french">Français</string>
+    <string name="lang_english">English</string>
+    <string name="lang_spanish">Español</string>
+    <string name="lang_portuguese">Português</string>
+    <string name="lang_arabic">العربية</string>
+    <string name="lang_bulgarian">Български</string>
+    <string name="lang_czech">Čeština</string>
+    <string name="lang_danish">Dansk</string>
+    <string name="lang_german">Deutsch</string>
+    <string name="lang_greek">Ελληνικά</string>
+    <string name="lang_urdu">اردو</string>
+    <string name="lang_chinese_simplified">简体中文</string>
+    <string name="lang_chinese_traditional">繁體中文</string>
+    <string name="lang_vietnamese">Tiếng Việt</string>
+    <string name="lang_brazilian">Brasil</string>
+    <string name="lang_mexican">México</string>
+    <string name="lang_pakistani">Pakistan</string>
+    <string name="lang_uae">الإمارات العربية المتحدة</string>
+    <string name="lang_saudi">المملكة العربية Saudi Arabia</string>
+
+    <!-- General -->
+    <string name="app_tagline">Moovee</string>
+    <string name="trending">Trending</string>
+    <string name="more">More &gt;</string>
+    <string name="new_releases">New Releases</string>
+    <string name="see_more">See more</string>
+    <string name="watch_all">Watch All</string>
+    <string name="watch_drama">Watch Drama</string>
+    <string name="no_results">No results found</string>
+    <string name="speed">Speed</string>
+    <string name="episode">Episode</string>
+    <string name="favorite">Favorite</string>
+    <string name="series">Series</string>
+    <string name="fullscreen">Full Screen</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="search_hint">Search here</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_discover">Discover</string>
+    <string name="nav_history">History</string>
+    <string name="nav_me">Me</string>
+    <string name="nav_play">Play</string>
+    <string name="nav_search">Search</string>
+
+    <!-- Placeholders (for tools) -->
+    <string name="placeholder_drama_title">Drama Title</string>
+    <string name="placeholder_episode">Episode 1</string>
+    <string name="placeholder_time">0:00 / 0:00</string>
+
+    <!-- Settings -->
+    <string name="favorites">Favorites</string>
+    <string name="history">History</string>
+    <string name="language">Language</string>
+    <string name="rate_app">Rate App</string>
+    <string name="share_app">Share App</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Term of Service</string>
+
+    <!-- Status -->
+    <string name="applying_language">Applying language...</string>
+    <string name="changes_applied">Changes applied!</string>
 </resources>

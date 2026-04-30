@@ -17,4 +17,10 @@
 -keepattributes *Annotation*
 -keep class com.google.gson.** { *; }
 
+# Google Billing Client
+-keep class com.android.billingclient.** { *; }
+
+# TikTok SDK
+-keep class com.tiktok.** { *; }
+
 # App-specific rules — add below

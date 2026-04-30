@@ -4,6 +4,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 // Load local.properties if exists (for production keys)
@@ -14,11 +16,11 @@ if (localPropsFile.exists()) {
 }
 
 android {
-    namespace = "com.nphstudio.appname"
+    namespace = "com.nphstudio.mooveeon"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.nphstudio.appname"
+        applicationId = "com.nphstudio.mooveeon"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -109,6 +111,8 @@ dependencies {
     implementation("com.facebook.android:facebook-android-sdk:18.2.3")
     // TikTok Business SDK — for TikTok Ads revenue tracking (via JitPack)
     implementation("com.github.tiktok:tiktok-business-android-sdk:1.6.1")
+    // Google Billing Client — required by TikTok SDK for IAP
+    implementation("com.android.billingclient:billing:7.1.0")
     // Adjust SDK — for attribution & revenue tracking
     // implementation("com.adjust.sdk:adjust-android:5.0.1")
     // AppsFlyer SDK — for attribution & revenue tracking
@@ -123,6 +127,30 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.5")
+
+    // Video Player (Media3)
+    implementation("androidx.media3:media3-exoplayer:1.5.0")
+    implementation("androidx.media3:media3-ui:1.5.0")
+    implementation("androidx.media3:media3-common:1.5.0")
+    implementation("androidx.media3:media3-datasource-okhttp:1.5.0")
+
+    // Image Loading (Glide)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
+
+    // Room Database
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    // Kapt is required for Room annotation processing
+    // Note: To use KSP, you would need to add the KSP plugin
+    // For simplicity with kapt:
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    // Networking
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

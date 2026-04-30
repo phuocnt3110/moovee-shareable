@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#1976D2</color>
-    <color name="primary_dark">#1565C0</color>
-    <color name="accent">#FF6F00</color>
+    <color name="primary">#00E676</color>
+    <color name="primary_dark">#00C853</color>
+    <color name="accent">#FF4444</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="background">#FAFAFA</color>
+    <color name="background">#121212</color>
+    <color name="item_background">#1E1E1E</color>
+    <color name="green_main">#00E676</color>
+    <color name="red_main">#FF4444</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_secondary">#8E99A7</color>
+    <color name="gray_button">#333333</color>
+    <color name="bottom_nav_bg">#1A1A1A</color>
+
+    <!-- Translucent Whites -->
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+
+    <!-- UI Elements -->
+    <color name="gray_handle">#4E586E</color>
+    <color name="dark_search_bg">#1F222A</color>
+    <color name="orange_accent">#FF9800</color>
 </resources>
