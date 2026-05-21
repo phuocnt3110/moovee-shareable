@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nphstudio.mooveeon.data.model.Episode
 import com.nphstudio.mooveeon.databinding.ItemVideoFeedBinding
 import com.nphstudio.mooveeon.utils.TranslationHelper
-import okhttp3.OkHttpClient
-import androidx.media3.datasource.okhttp.OkHttpDataSource
+import androidx.media3.datasource.DefaultHttpDataSource
 import com.nphstudio.mooveeon.R
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
@@ -28,20 +27,7 @@ class VideoFeedAdapter(
     private val activeHolders = mutableSetOf<VideoViewHolder>()
 
     companion object {
-        private const val USER_AGENT = "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36"
-
-        private val okHttpClient by lazy {
-            OkHttpClient.Builder()
-                .followRedirects(true)
-                .followSslRedirects(true)
-                .addInterceptor { chain ->
-                    val request = chain.request().newBuilder()
-                        .header("User-Agent", USER_AGENT)
-                        .build()
-                    chain.proceed(request)
-                }
-                .build()
-        }
+        private const val USER_AGENT = "ExoPlayer/MooveeOn"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
@@ -271,7 +257,7 @@ class VideoFeedAdapter(
 
             player?.release()
             
-            val dataSourceFactory = OkHttpDataSource.Factory(okHttpClient)
+            val dataSourceFactory = DefaultHttpDataSource.Factory()
                 .setUserAgent(USER_AGENT)
 
             binding.pbLoading.visibility = android.view.View.VISIBLE

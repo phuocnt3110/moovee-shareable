@@ -16,11 +16,11 @@ class DramaRepository(private val context: Context) {
     )
 
     companion object {
-        private const val SAMPLE_VIDEO = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-        private const val SAMPLE_VIDEO_2 = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
-        private const val SAMPLE_VIDEO_3 = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
-        private const val SAMPLE_VIDEO_4 = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
-        private const val SAMPLE_VIDEO_5 = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+        private const val SAMPLE_VIDEO = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4"
+        private const val SAMPLE_VIDEO_2 = "https://storage.googleapis.com/exoplayer-test-media-1/mp4/frame-counter-one-hour.mp4"
+        private const val SAMPLE_VIDEO_3 = "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4"
+        private const val SAMPLE_VIDEO_4 = "https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4"
+        private const val SAMPLE_VIDEO_5 = "https://storage.googleapis.com/exoplayer-test-media-1/mp4/frame-counter-one-hour.mp4"
 
         private val embeddedMocks = listOf(
             DramaMock("d1", "Unconditional Dad", "After ten years in prison for avenging his eldest daughter's death, he returns to find his family in ruins and his second daughter struggling to survive against corrupt forces.", "https://images.unsplash.com/photo-1536440136628-849c177e76a1", 8, listOf(SAMPLE_VIDEO, SAMPLE_VIDEO_2)),
