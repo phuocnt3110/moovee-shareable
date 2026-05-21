@@ -22,6 +22,8 @@ class DramaRepository(private val context: Context) {
         private const val SAMPLE_VIDEO_4 = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
         private const val SAMPLE_VIDEO_5 = "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4"
 
+        fun getAllPosterUrls(): List<String> = embeddedMocks.map { it.posterUrl }
+
         private val embeddedMocks = listOf(
             DramaMock("d1", "Unconditional Dad", "After ten years in prison for avenging his eldest daughter's death, he returns to find his family in ruins and his second daughter struggling to survive against corrupt forces.", "https://images.unsplash.com/photo-1536440136628-849c177e76a1", 8, listOf(SAMPLE_VIDEO, SAMPLE_VIDEO_2)),
             DramaMock("d2", "The Wrong Daughter", "A heart-wrenching story of a young woman who discovers her true identity as the heiress to a vast billionaire empire, only to face betrayal from the family she once called her own.", "https://images.unsplash.com/photo-1485846234645-a62644f84728", 12, listOf(SAMPLE_VIDEO_3, SAMPLE_VIDEO_4)),

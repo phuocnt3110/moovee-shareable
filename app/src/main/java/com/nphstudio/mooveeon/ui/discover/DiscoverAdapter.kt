@@ -3,11 +3,9 @@ package com.nphstudio.mooveeon.ui.discover
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.data.model.DramaSeries
 import com.nphstudio.mooveeon.databinding.ItemDiscoverDramaBinding
-
+import com.nphstudio.mooveeon.utils.GlideUtils
 import com.nphstudio.mooveeon.utils.TranslationHelper
 
 class DiscoverAdapter(
@@ -72,11 +70,7 @@ class DiscoverAdapter(
             binding.tvSeeMore.setOnClickListener { toggleDescription() }
             binding.tvDescription.setOnClickListener { if (isExpanded) toggleDescription() }
             
-            Glide.with(binding.ivPoster)
-                .load(item.posterUrl)
-                .placeholder(R.drawable.img_placeholder)
-                .error(R.drawable.img_placeholder)
-                .into(binding.ivPoster)
+            GlideUtils.loadImage(binding.ivPoster, item.posterUrl)
 
             binding.btnWatchAll.text = TranslationHelper.getString("watch_all", "Watch All")
             binding.btnWatchAll.setOnClickListener { onWatchClick(item) }
