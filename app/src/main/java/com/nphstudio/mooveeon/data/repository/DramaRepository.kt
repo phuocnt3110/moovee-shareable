@@ -1,7 +1,6 @@
 package com.nphstudio.mooveeon.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.nphstudio.mooveeon.data.model.DramaSeries
 import com.nphstudio.mooveeon.data.model.Episode
 
@@ -38,60 +37,30 @@ class DramaRepository(private val context: Context) {
     }
 
     suspend fun getDramas(page: Int = 1, pageSize: Int = 10): List<DramaSeries> {
-        return try {
-            val mocks = com.nphstudio.mooveeon.data.remote.RetrofitClient.apiService.getMovies(page, pageSize)
-            mocks.map { mapToDramaSeries(it) }
-        } catch (e: Exception) {
-            Log.e("DramaRepository", "API unavailable, using embedded data", e)
-            val start = (page - 1) * pageSize
-            if (start >= embeddedMocks.size) emptyList()
-            else embeddedMocks.subList(start, minOf(start + pageSize, embeddedMocks.size)).map { mapToDramaSeries(it) }
-        }
+        val start = (page - 1) * pageSize
+        if (start >= embeddedMocks.size) return emptyList()
+        return embeddedMocks.subList(start, minOf(start + pageSize, embeddedMocks.size)).map { mapToDramaSeries(it) }
     }
 
     suspend fun getTrendingRemote(): List<DramaSeries> {
-        return try {
-            val mocks = com.nphstudio.mooveeon.data.remote.RetrofitClient.apiService.getTrendingMovies()
-            mocks.map { mapToDramaSeries(it) }
-        } catch (e: Exception) {
-            Log.e("DramaRepository", "API unavailable, using embedded trending", e)
-            embeddedMocks.shuffled().take(5).map { mapToDramaSeries(it) }
-        }
+        return embeddedMocks.shuffled().take(5).map { mapToDramaSeries(it) }
     }
 
     suspend fun getRecommendationsRemote(): List<DramaSeries> {
-        return try {
-            val mocks = com.nphstudio.mooveeon.data.remote.RetrofitClient.apiService.getRecommendations()
-            mocks.map { mapToDramaSeries(it) }
-        } catch (e: Exception) {
-            Log.e("DramaRepository", "API unavailable, using embedded recommendations", e)
-            embeddedMocks.shuffled().take(4).map { mapToDramaSeries(it) }
-        }
+        return embeddedMocks.shuffled().take(4).map { mapToDramaSeries(it) }
     }
 
     suspend fun searchRemote(keyword: String, page: Int = 1, pageSize: Int = 10): List<DramaSeries> {
-        return try {
-            val mocks = com.nphstudio.mooveeon.data.remote.RetrofitClient.apiService.searchMovies(keyword, page, pageSize)
-            mocks.map { mapToDramaSeries(it) }
-        } catch (e: Exception) {
-            Log.e("DramaRepository", "API unavailable, using embedded search", e)
-            val filtered = embeddedMocks.filter {
-                it.title.contains(keyword, ignoreCase = true) || it.description.contains(keyword, ignoreCase = true)
-            }
-            val start = (page - 1) * pageSize
-            if (start >= filtered.size) emptyList()
-            else filtered.subList(start, minOf(start + pageSize, filtered.size)).map { mapToDramaSeries(it) }
+        val filtered = embeddedMocks.filter {
+            it.title.contains(keyword, ignoreCase = true) || it.description.contains(keyword, ignoreCase = true)
         }
+        val start = (page - 1) * pageSize
+        if (start >= filtered.size) return emptyList()
+        return filtered.subList(start, minOf(start + pageSize, filtered.size)).map { mapToDramaSeries(it) }
     }
 
     suspend fun getMovieDetailRemote(id: String): DramaSeries? {
-        return try {
-            val mocks = com.nphstudio.mooveeon.data.remote.RetrofitClient.apiService.getMovieDetail(id)
-            mocks.firstOrNull()?.let { mapToDramaSeries(it) }
-        } catch (e: Exception) {
-            Log.e("DramaRepository", "API unavailable, using embedded detail", e)
-            embeddedMocks.find { it.id == id }?.let { mapToDramaSeries(it) }
-        }
+        return embeddedMocks.find { it.id == id }?.let { mapToDramaSeries(it) }
     }
 
     private fun mapToDramaSeries(mock: DramaMock): DramaSeries {
