@@ -21,6 +21,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "nph-app-template"
+rootProject.name = "MooveeOn"
 
 include(":app")

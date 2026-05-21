@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.nphlab.sdk.ads.NphAds
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.databinding.FragmentSettingsBinding
 import com.nphstudio.mooveeon.utils.TranslationHelper
@@ -28,9 +27,6 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-
-        // Load banner ad
-        NphAds.loadBannerInto(binding.adBannerContainer, "nsp-banner-settings-bottom-auto")
 
         binding.btnFavorites.setOnClickListener {
             val bundle = Bundle().apply {

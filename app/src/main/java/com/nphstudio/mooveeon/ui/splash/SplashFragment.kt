@@ -1,12 +1,13 @@
 package com.nphstudio.mooveeon.ui.splash
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.nphlab.sdk.ads.NphAds
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.databinding.FragmentSplashBinding
 import com.nphstudio.mooveeon.utils.LocaleHelper
@@ -27,10 +28,7 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Preload first interstitial to ensure it's ready after language selection
-        NphAds.preload(requireActivity(), "nsp-interstitial-language-fullscreen-complete")
-
-        NphAds.showSplash(requireActivity()) {
+        Handler(Looper.getMainLooper()).postDelayed({
             if (isAdded) {
                 if (LocaleHelper.isLanguageSelected(requireContext())) {
                     findNavController().navigate(R.id.action_splash_to_home)
@@ -38,7 +36,7 @@ class SplashFragment : Fragment() {
                     findNavController().navigate(R.id.action_splash_to_language)
                 }
             }
-        }
+        }, 1500)
     }
 
     override fun onDestroyView() {

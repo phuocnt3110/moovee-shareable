@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import com.nphlab.sdk.ads.NphAds
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.data.model.DramaSeries
 import com.nphstudio.mooveeon.databinding.FragmentHomeBinding
@@ -54,17 +53,12 @@ class HomeFragment : Fragment() {
         // Initial load
         loadInitialData()
 
-        loadAds()
-        
-        // Preload interstitial ad
-        NphAds.preload(requireActivity(), "nsp-interstitial-home-fullscreen-clickSettings")
-
         binding.ivSearch.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
 
         binding.ivSettings.setOnClickListener {
-            showSettingsInterstitial()
+            findNavController().navigate(R.id.settingsFragment)
         }
 
         binding.tvMore.setOnClickListener {
@@ -143,30 +137,10 @@ class HomeFragment : Fragment() {
         trendingAdapter.submitList(trendingDramas)
     }
 
-    private fun showSettingsInterstitial() {
-        NphAds.showInterstitial(
-            activity = requireActivity(),
-            nameSpace = "nsp-interstitial-home-fullscreen-clickSettings",
-            listener = object : com.nphlab.sdk.ads.listener.NphAdListener() {
-                override fun onAdDismissed() {
-                    if (isAdded) findNavController().navigate(R.id.settingsFragment)
-                }
-                override fun onAdFailed(error: com.nphlab.sdk.ads.AdError) {
-                    if (isAdded) findNavController().navigate(R.id.settingsFragment)
-                }
-            }
-        )
-    }
-
     private fun setupUI() {
         binding.tvTrendingTitle.text = TranslationHelper.getString("trending", "Trending")
         binding.tvMore.text = TranslationHelper.getString("more", "More >")
         binding.tvNewReleasesTitle.text = TranslationHelper.getString("new_releases", "New Releases")
-    }
-
-    private fun loadAds() {
-        NphAds.loadBannerInto(binding.adBannerContainer, "nsp-banner-home-bottom-auto")
-        NphAds.loadNativeInto(binding.adNativeContainer, "nsp-native-home-top-auto")
     }
 
     private fun setupAdapters() {

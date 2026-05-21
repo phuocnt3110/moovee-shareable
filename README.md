@@ -1,134 +1,62 @@
-# NPH App Template
+# MooveeOn
 
-Android Studio project template tích hợp sẵn **NPH SDK v1.0.0**.
+A short-form video drama streaming app built with Kotlin and Jetpack components.
 
-## Quick Start
+## Features
+
+- Browse trending and new release drama series
+- Watch episodes with vertical swipe feed (TikTok-style)
+- Playback speed control
+- Episode list with tabbed pagination
+- Watch history tracking
+- Favorites management
+- Multi-language support (16 languages)
+- Onboarding flow
+- Search functionality
+
+## Tech Stack
+
+- **Language:** Kotlin
+- **Min SDK:** 24
+- **Architecture:** Single Activity + Navigation Component
+- **Video Player:** AndroidX Media3 (ExoPlayer)
+- **Image Loading:** Glide
+- **Database:** Room
+- **Networking:** Retrofit + OkHttp
+- **UI:** Material Design 3, ViewBinding, ConstraintLayout
+
+## Getting Started
 
 ```bash
-# 1. Clone
-git clone https://github.com/nphlab/codebase.git <app-name>
-cd <app-name>
-
-# 2. Đổi package name
-#    - app/build.gradle.kts → applicationId
-#    - AndroidManifest.xml → package
-#    - Rename folders: app/src/main/java/com/nphstudio/appname/ → your package
-
-# 3. Add google-services.json (từ Firebase Console)
-#    Copy vào app/google-services.json
-
-# 4. Build
+git clone https://github.com/phuocnt3110/moovee-shareable.git
+cd moovee-shareable
 ./gradlew assembleDebug
 ```
 
 ## Project Structure
 
 ```
-├── app/
-│   ├── libs/                    ← NPH SDK AARs (DO NOT MODIFY)
-│   │   ├── nph-ads-1.0.0-release.aar
-│   │   ├── nph-config-1.0.0-release.aar
-│   │   └── nph-track-1.0.0-release.aar
-│   ├── src/main/
-│   │   ├── assets/ads_config.json   ← Test ad config (auto-loaded)
-│   │   ├── java/.../
-│   │   │   ├── MyApp.kt            ← SDK init
-│   │   │   └── ui/                  ← Fragments (Splash, Language, Onboarding, Home, Settings)
-│   │   ├── res/                     ← Layouts, navigation, strings
-│   │   └── AndroidManifest.xml
-│   └── build.gradle.kts
-├── docs/
-│   ├── product.md               ← App spec (NPH Lab fills)
-│   └── MO.md                    ← Monetization spec (NPH Lab fills)
-├── .github/workflows/
-│   └── android-ci.yml           ← CI checks on push/PR
-├── local.properties.example     ← Key format reference
-├── .gitignore                   ← Blocks local.properties, *.jks, google-services.json
-└── README.md
+app/src/main/java/com/nphstudio/mooveeon/
+├── MyApp.kt                    # Application class
+├── data/
+│   ├── local/                  # Room database, DAOs, entities
+│   ├── model/                  # Data models (DramaSeries, Episode)
+│   ├── remote/                 # Retrofit API service
+│   └── repository/             # Data repository
+├── ui/
+│   ├── MainActivity.kt         # Single Activity + NavHost
+│   ├── splash/                 # Splash screen
+│   ├── language/               # Language selection
+│   ├── onboarding/             # Onboarding flow
+│   ├── home/                   # Home screen (trending, new releases)
+│   ├── feed/                   # Video feed (vertical swipe player)
+│   ├── discover/               # Discover/browse
+│   ├── history/                # Watch history & favorites
+│   ├── search/                 # Search functionality
+│   └── settings/               # App settings
+└── utils/                      # Helpers (Locale, Translation)
 ```
 
-## Key Management
+## License
 
-- **Dev:** Không cần tạo `local.properties`. App tự dùng Google test IDs.
-- **NPH Lab (release):** Tạo `local.properties` với real keys trên máy build.
-- Xem `local.properties.example` để biết format.
-
-## SDK API (Quick Reference)
-
-```kotlin
-// Init (MyApp.kt — already configured)
-NphSdk.init(context, ConfigSource.FIREBASE, enableDebug = BuildConfig.DEBUG)
-
-// Interstitial
-NphAds.showInterstitial(activity, "nsp_inter_scan", listener)
-
-// Rewarded
-NphAds.showRewarded(activity, "nsp_reward_xxx", rewardListener)
-
-// Banner
-NphAds.loadBannerInto(container, "nsp_bn_home_bottom")
-
-// Native
-NphAds.loadNativeInto(container, "nsp_native_history")
-
-// Splash (already in SplashFragment)
-NphAds.showSplash(activity) { navigateToNext() }
-
-// Preload
-NphAds.preload(activity, "nsp_inter_scan_result")
-
-// Premium
-NphAds.setPremium(true)
-
-// Cleanup
-NphAds.destroy(activity) // in onDestroy()
-```
-
-## CI/CD (GitHub Actions)
-
-Mỗi push/PR sẽ tự động kiểm tra:
-
-| Check | Mô tả |
-|---|---|
-| Build Debug APK | `assembleDebug` phải thành công |
-| No direct AdMob imports | Source code không được import `com.google.android.gms.ads.*` |
-| No hardcoded ad IDs | Không có `ca-app-pub-` trong `.kt`/`.java` files |
-| No local.properties | File sensitive không được commit |
-| No keystore files | `.jks`/`.keystore` không được commit |
-| google-services.json not tracked | Firebase config không track trong git |
-| SDK AARs present | 3 file AAR phải có trong `app/libs/` |
-| Required docs | `README.md`, `docs/product.md`, `docs/MO.md` phải tồn tại |
-| Android Lint | Chạy lint (warning only) |
-
-## Tracking SDKs
-
-nph-track tự động detect và gửi ad revenue cho các platform đã cài:
-
-| SDK | Dependency | Dùng cho |
-|---|---|---|
-| Firebase Analytics | Luôn có (BOM 33.7.0) | Google Ads optimization |
-| Meta/Facebook | `facebook-android-sdk:18.2.3` | Meta Ads campaigns |
-| TikTok | `tiktok-business-android-sdk:1.6.1` | TikTok Ads campaigns |
-| Adjust | `adjust-android:5.0.1` (commented) | Attribution MMP |
-| AppsFlyer | `af-android-sdk:6.15.0` (commented) | Attribution MMP |
-
-Comment/uncomment trong `app/build.gradle.kts` để bật/tắt per project.
-Remote Config key `nph_tracker_config` cho phép NPH Lab tắt/bật runtime.
-
-## Documentation
-
-- **Owner guide:** Xem `docs/tutorials/OWNER_GUIDE.md`
-- **Dev guide:** Xem `docs/tutorials/DEV_GUIDE.md`
-- **MO guide:** Xem `docs/tutorials/MO_GUIDE.md`
-- **UA guide:** Xem `docs/tutorials/UA_GUIDE.md`
-- **Full framework guide:** Xem `TEMPLATE_GUIDE.md` trong repo framework-requirement
-
-## Rules
-
-- ❌ KHÔNG import trực tiếp AdMob/FAN SDK
-- ❌ KHÔNG hardcode ad unit IDs
-- ❌ KHÔNG sửa file trong `app/libs/`
-- ❌ KHÔNG commit `local.properties`, `*.jks`, `google-services.json`
-- ✅ Dùng `NphAds.*` cho tất cả ad operations
-- ✅ Handle cả `onAdDismissed` + `onAdFailed` callbacks
-- ✅ Gọi `NphAds.destroy(this)` trong `onDestroy()`
+This project is provided for educational and demonstration purposes.

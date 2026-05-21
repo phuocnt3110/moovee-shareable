@@ -7,9 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.activity.addCallback
-import com.nphlab.sdk.ads.AdError
-import com.nphlab.sdk.ads.NphAds
-import com.nphlab.sdk.ads.listener.NphAdListener
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.databinding.FragmentFeedBinding
 import com.nphstudio.mooveeon.utils.TranslationHelper
@@ -49,10 +46,6 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupVideoFeed()
-        
-        // Preload interstitial ad for back home
-        NphAds.preload(requireActivity(), "nsp-interstitial-feed-fullscreen-back")
-
         setupBackNavigation()
     }
 
@@ -248,11 +241,6 @@ class FeedFragment : Fragment() {
         val tvCurrentEp = view.findViewById<android.widget.TextView>(R.id.tv_current_episode)
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout_ranges)
         val rv = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_episodes)
-        val adContainer = view.findViewById<android.view.ViewGroup>(R.id.ad_container)
-
-        // MO.md: Load Banner Ad for Episodes Sheet
-        NphAds.loadBannerInto(adContainer, "nsp-banner-feed-dialog-auto")
-        
         tvTitle.text = drama.title
         val currentPos = binding.viewPagerVideos.currentItem
         val currentEpisode = allEpisodes.getOrNull(currentPos)
@@ -314,10 +302,6 @@ class FeedFragment : Fragment() {
         val view = layoutInflater.inflate(R.layout.bottom_sheet_speed, null)
         
         val rvSpeeds = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_speeds)
-        val adContainer = view.findViewById<android.view.ViewGroup>(R.id.ad_container)
-        
-        // MO.md: Load Ad for Speed Sheet
-        NphAds.loadBannerInto(adContainer, "nsp-banner-feed-dialog-auto")
 
         val speedOptions = listOf(0.5f, 0.75f, 1.0f, 1.25f, 1.5f, 2.0f, 2.5f, 3.0f)
         
@@ -338,31 +322,12 @@ class FeedFragment : Fragment() {
     }
 
     private fun unlockEpisode(episode: com.nphstudio.mooveeon.data.model.Episode) {
-        NphAds.showRewarded(
-            activity = requireActivity(),
-            nameSpace = "nsp-rewarded-feed-fullscreen-unlockEpisode",
-            listener = object : com.nphlab.sdk.ads.listener.NphRewardListener() {
-                override fun onRewardEarned(rewardType: String, rewardAmount: Int) {
-                    val unlockedLabel = TranslationHelper.getString("unlocked", "Unlocked")
-                    android.widget.Toast.makeText(requireContext(), "$unlockedLabel: ${episode.title}", android.widget.Toast.LENGTH_SHORT).show()
-                }
-            }
-        )
+        val unlockedLabel = TranslationHelper.getString("unlocked", "Unlocked")
+        android.widget.Toast.makeText(requireContext(), "$unlockedLabel: ${episode.title}", android.widget.Toast.LENGTH_SHORT).show()
     }
 
     private fun showBackInterstitial() {
-        NphAds.showInterstitial(
-            activity = requireActivity(),
-            nameSpace = "nsp-interstitial-feed-fullscreen-back",
-            listener = object : NphAdListener() {
-                override fun onAdDismissed() {
-                    if (isAdded) findNavController().navigateUp()
-                }
-                override fun onAdFailed(error: AdError) {
-                    if (isAdded) findNavController().navigateUp()
-                }
-            }
-        )
+        if (isAdded) findNavController().navigateUp()
     }
 
     override fun onPause() {

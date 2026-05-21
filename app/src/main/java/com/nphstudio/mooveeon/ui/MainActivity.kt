@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.nphlab.sdk.ads.NphAds
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.databinding.ActivityMainBinding
 import com.nphstudio.mooveeon.utils.LocaleHelper
@@ -70,7 +69,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        NphAds.destroy(this)
         super.onDestroy()
     }
 }

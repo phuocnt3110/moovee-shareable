@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.nphlab.sdk.ads.AdError
-import com.nphlab.sdk.ads.NphAds
-import com.nphlab.sdk.ads.listener.NphAdListener
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.databinding.FragmentOnboardingBinding
 import com.nphstudio.mooveeon.utils.TranslationHelper
@@ -34,7 +31,6 @@ class OnboardingFragment : Fragment() {
 
         setupUI()
         setupViewPager()
-        loadAds()
 
         binding.tvNext.setOnClickListener {
             val nextItem = binding.viewPager.currentItem + 1
@@ -57,10 +53,6 @@ class OnboardingFragment : Fragment() {
     private fun setupUI() {
         binding.tvSkip.text = TranslationHelper.getString("btn_skip", "Skip")
         binding.tvNext.text = TranslationHelper.getString("btn_next", "Next")
-    }
-
-    private fun loadAds() {
-        NphAds.loadBannerInto(binding.adBannerContainer, "nsp-banner-onboarding-bottom-auto")
     }
 
     private fun setupViewPager() {
@@ -109,22 +101,7 @@ class OnboardingFragment : Fragment() {
 
     private fun navigateToHome() {
         if (!isAdded) return
-        
-        // Use local variable to avoid potential issues with findNavController() inside listener
-        val navController = findNavController()
-        
-        NphAds.showInterstitial(
-            activity = requireActivity(),
-            nameSpace = "nsp-interstitial-onboarding-fullscreen-complete",
-            listener = object : NphAdListener() {
-                override fun onAdDismissed() {
-                    if (isAdded) navController.navigate(R.id.action_onboarding_to_home)
-                }
-                override fun onAdFailed(error: AdError) {
-                    if (isAdded) navController.navigate(R.id.action_onboarding_to_home)
-                }
-            }
-        )
+        findNavController().navigate(R.id.action_onboarding_to_home)
     }
 
     override fun onDestroyView() {

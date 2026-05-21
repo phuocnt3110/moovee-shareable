@@ -9,9 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nphlab.sdk.ads.AdError
-import com.nphlab.sdk.ads.NphAds
-import com.nphlab.sdk.ads.listener.NphAdListener
 import com.nphstudio.mooveeon.R
 import com.nphstudio.mooveeon.databinding.FragmentLanguageBinding
 import com.nphstudio.mooveeon.ui.MainActivity
@@ -40,9 +37,6 @@ class LanguageFragment : Fragment() {
 
         setupUI()
         setupRecyclerView()
-        
-        // Preload next interstitial
-        NphAds.preload(requireActivity(), "nsp-interstitial-onboarding-fullscreen-complete")
 
         binding.btnContinue.setOnClickListener {
             applyLanguage()
@@ -51,8 +45,6 @@ class LanguageFragment : Fragment() {
         binding.ivDone.setOnClickListener {
             applyLanguage()
         }
-        
-        NphAds.loadBannerInto(binding.adBannerContainer, "nsp-banner-language-bottom-auto")
     }
 
     private fun setupUI() {
@@ -131,19 +123,7 @@ class LanguageFragment : Fragment() {
     private fun navigateNext() {
         val fromSettings = arguments?.getBoolean("fromSettings", false) ?: false
         val actionId = if (fromSettings) R.id.action_language_to_home else R.id.action_language_to_onboarding
-
-        NphAds.showInterstitial(
-            activity = requireActivity(),
-            nameSpace = "nsp-interstitial-language-fullscreen-complete",
-            listener = object : NphAdListener() {
-                override fun onAdDismissed() {
-                    if (isAdded) findNavController().navigate(actionId)
-                }
-                override fun onAdFailed(error: AdError) {
-                    if (isAdded) findNavController().navigate(actionId)
-                }
-            }
-        )
+        if (isAdded) findNavController().navigate(actionId)
     }
 
     override fun onDestroyView() {

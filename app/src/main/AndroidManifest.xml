@@ -16,19 +16,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="35">
 
-        <!-- AdMob App ID — value injected from build.gradle.kts -->
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${admobAppId}" />
-
-        <!-- Meta App ID & Client Token -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="${metaAppId}" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="${metaClientToken}" />
-
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
