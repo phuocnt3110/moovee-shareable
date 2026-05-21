@@ -2,7 +2,6 @@ package com.nphstudio.mooveeon.ui.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.RecyclerView
@@ -272,22 +271,8 @@ class VideoFeedAdapter(
 
             player?.release()
             
-            val uri = url.toUri()
-            val host = uri.host ?: ""
-            val origin = if (uri.scheme != null && host.isNotEmpty()) "${uri.scheme}://$host" else ""
-            
-            val headers = mutableMapOf(
-                "Accept" to "*/*",
-                "Accept-Language" to "en-US,en;q=0.9"
-            )
-            if (origin.isNotEmpty()) {
-                headers["Origin"] = origin
-                headers["Referer"] = "$origin/"
-            }
-
             val dataSourceFactory = OkHttpDataSource.Factory(okHttpClient)
                 .setUserAgent(USER_AGENT)
-                .setDefaultRequestProperties(headers)
 
             binding.pbLoading.visibility = android.view.View.VISIBLE
             binding.btnPlayPause.visibility = android.view.View.GONE
