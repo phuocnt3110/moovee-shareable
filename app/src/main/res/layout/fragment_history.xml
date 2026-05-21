@@ -38,14 +38,7 @@
         android:paddingTop="8dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/ad_banner_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_history" />
-
-    <FrameLayout
-        android:id="@+id/ad_banner_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,7 +44,7 @@
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingBottom="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/ad_banner_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_toolbar"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_language" />
@@ -64,7 +64,7 @@
         android:textStyle="bold"
         app:backgroundTint="@color/green_main"
         app:cornerRadius="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/ad_banner_container" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_loading"
@@ -74,7 +74,7 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/ad_banner_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
@@ -110,7 +110,7 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/ad_banner_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -137,12 +137,5 @@
             app:layout_constraintTop_toBottomOf="@id/iv_success" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <FrameLayout
-        android:id="@+id/ad_banner_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
